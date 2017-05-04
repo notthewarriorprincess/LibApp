@@ -87,7 +87,8 @@ libApp.controller("scanController", function($scope, $cordovaBarcodeScanner) {
  
     $scope.scanBarcode = function() {
         $cordovaBarcodeScanner.scan().then(function(imageData) {
-            $scope.changeIt();
+            $scope.modal.show();
+            //$scope.changeIt();
             alert(imageData.text);
             console.log("Barcode Format -> " + imageData.format);
             console.log("Cancelled -> " + imageData.cancelled);
@@ -98,10 +99,18 @@ libApp.controller("scanController", function($scope, $cordovaBarcodeScanner) {
  
 });
 
-libApp.controller('dummy', ['$scope', '$sce', function ($scope, $sce){
+/*libApp.controller('dummy', ['$scope', '$sce', function ($scope, $sce){
   $scope.url = $sce.trustAsResourceUrl('http://api.upcdatabase.org/json/24fd2b86966da777faa1366277105e43/' + imageData.text);
 
   $scope.changeIt = function () {
     $scope.url = $sce.trustAsResourceUrl('http://api.upcdatabase.org/json/24fd2b86966da777faa1366277105e43/' + imageData.text);
   }
-}]);
+}]);*/
+
+libApp.controller('AppCtrl', function($scope, $ionicModal){
+  $ionicModal.fromTemplateUrl('templates/tab-chats', {
+    scope: $scope
+  }).then(function(modal){
+    $scope.modal = modal;
+  });
+})
